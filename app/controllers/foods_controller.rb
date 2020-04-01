@@ -6,7 +6,6 @@ class FoodsController < ApplicationController
   # GET /foods.json
   def index
     @foods = Food.all.sort_by &:expires
-    @today = Date.today()
   end
 
   # GET /foods/1
