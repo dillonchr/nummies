@@ -1,10 +1,12 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: [:show, :edit, :update, :destroy]
+  helper_method :print_expires
 
   # GET /foods
   # GET /foods.json
   def index
-    @foods = Food.all
+    @foods = Food.all.sort_by &:expires
+    @today = Date.today()
   end
 
   # GET /foods/1
@@ -70,5 +72,9 @@ class FoodsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def food_params
       params.require(:food).permit(:name, :expires)
+    end
+
+    def print_expires(food)
+      return (food.expires - Date.today).to_i
     end
 end
